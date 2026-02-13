@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoạt Động Ban Công Nghệ</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Base Styles */
+        :root {
+            --bg-body: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --blue-600: #2563eb;
+            --purple-600: #9333ea;
+            --emerald-600: #059669;
+            --orange-600: #ea580c;
+            --rose-600: #e11d48;
+            --indigo-600: #4f46e5;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1152px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        /* Layout */
+        header {
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            header { text-align: center; }
+        }
+
+        .header-line {
+            display: inline-block;
+            height: 4px;
+            width: 48px;
+            background-color: var(--blue-600);
+            border-radius: 99px;
+            margin-right: 8px;
+        }
+
+        .subtitle {
+            color: var(--blue-600);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .subtitle { justify-content: center; }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 1rem 0;
+            letter-spacing: -0.025em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #2563eb, #4f46e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-desc {
+            color: var(--text-muted);
+            max-width: 42rem;
+            font-size: 1.125rem;
+            line-height: 1.75;
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Card Styles */
+        .card {
+            background: #fff;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .bg-accent {
+            position: absolute;
+            top: -32px;
+            right: -32px;
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            opacity: 0.05;
+            transition: transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        .card:hover .bg-accent {
+            transform: scale(1.5);
+        }
+
+        .icon-box {
+            display: inline-flex;
+            padding: 0.875rem;
+            border-radius: 1rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            font-size: 0.625rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #94a3b8;
+        }
+
+        .status-badge {
+            font-size: 0.625rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            background: #f1f5f9;
+            color: #64748b;
+            font-weight: 700;
+            border: 1px solid #e2e8f0;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 0.75rem 0;
+            color: #1e293b;
+        }
+
+        .card p {
+            color: #64748b;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--blue-600);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        /* Detail Page Styles */
+        .detail-header {
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: white;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+backdrop-filter: blur(10px);
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover { background: white; color: #000; }
+
+        .detail-content-wrapper {
+            max-width: 56rem;
+            margin: -4rem auto 5rem;
+            padding: 0 1.5rem;
+            position: relative;
+        }
+
+        .detail-card {
+            background: white;
+            border-radius: 2.5rem;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
+            border: 1px solid #f1f5f9;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .info-grid { grid-template-columns: 1fr; }
+        }
+
+        .info-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid #f1f5f9;
+        }
+
+        /* Utilities */
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bg-blue-600 { background-color: var(--blue-600); }
+        .bg-purple-600 { background-color: var(--purple-600); }
+        .bg-emerald-600 { background-color: var(--emerald-600); }
+        .bg-orange-600 { background-color: var(--orange-600); }
+        .bg-rose-600 { background-color: var(--rose-600); }
+        .bg-indigo-600 { background-color: var(--indigo-600); }
+    </style>
+</head>
+<body>
+
+    <div id="app" class="min-h-screen">
+        <!-- Content injected by JS -->
+    </div>
+
+    <script>
+        const activities = [
+            {
+                id: 1,
+                title: "Hackathon Nội Bộ",
+                tag: "Sáng tạo",
+                status: "Thường niên",
+                icon: "trophy",
+                color: "bg-blue-600",
+                description: "Sân chơi sáng tạo nơi các kỹ sư cùng nhau giải quyết những thách thức kỹ thuật hóc búa trong 24h.",
+                fullContent: "Hackathon nội bộ là sự kiện quan trọng nhất để thúc đẩy tinh thần đổi mới sáng tạo. Đây là dịp để các thành viên bước ra khỏi vùng an toàn, cùng nhau giải quyết một vấn đề kỹ thuật hoặc phát triển tính năng đột phá chỉ trong vòng 24 giờ liên tục.",
+                details: [
+                    "Thời gian diễn ra: Tháng 6 hàng năm", 
+                    "Đối tượng: Toàn bộ kỹ sư & Designer", 
+                    "Mở đăng ký: 01/05 hàng năm",
+                    "Kết thúc đăng ký: 25/05 hàng năm"
+                ]
+},
+            {
+                id: 2,
+                title: "Tech Talk Hàng Tuần",
+                tag: "Chia sẻ",
+                status: "Thứ 6 hàng tuần",
+                icon: "message-square",
+                color: "bg-purple-600",
+                description: "Buổi chia sẻ kiến thức chuyên sâu về AI, Cloud, và kiến trúc hệ thống hiện đại.",
+                fullContent: "Mỗi chiều Thứ 6, chúng tôi tạm gác lại các dòng code để ngồi lại cùng nhau thảo luận về các chủ đề công nghệ đang 'hot'. Đây là môi trường tuyệt vời để cập nhật kiến thức và phản biện kỹ thuật.",
+                details: [
+                    "Thời gian: 16:00, Thứ 6 hàng tuần", 
+                    "Hình thức: Hybrid (Trực tiếp & Online)", 
+                    "Mở đăng ký: Thứ 2 hàng tuần",
+                    "Kết thúc đăng ký: Thứ 5 hàng tuần"
+                ]
+            },
+            {
+                id: 3,
+                title: "Nghiên Cứu & Phát Triển",
+                tag: "R&D",
+                status: "Liên tục",
+                icon: "cpu",
+                color: "bg-emerald-600",
+                description: "Nghiên cứu ứng dụng các framework, thư viện mới nhất để tối ưu hóa hiệu suất hệ thống.",
+                fullContent: "Ban Công nghệ luôn dành ra thời gian cho các hoạt động R&D. Chúng tôi tin rằng việc không ngừng thử nghiệm các công nghệ tiềm năng là chìa khóa để duy trì vị thế dẫn đầu.",
+                details: [
+                    "Trọng tâm: AI/ML, Cloud-Native", 
+                    "Đầu ra: Prototype hoặc Tech Blog", 
+                    "Mở đăng ký đề tài: Ngày 05 hàng tháng",
+                    "Kết thúc đăng ký: Ngày 10 hàng tháng"
+                ]
+            },
+            {
+                id: 4,
+                title: "Workshop Đào Tạo",
+                tag: "Đào tạo",
+                status: "Hàng tháng",
+                icon: "code",
+                color: "bg-orange-600",
+                description: "Các khóa học ngắn hạn nâng cao kỹ năng lập trình, bảo mật và quy trình CI/CD cho thành viên.",
+                fullContent: "Workshop chuyên sâu được tổ chức để 'up-skill' cho đội ngũ kỹ sư. Các buổi workshop luôn đi kèm với thực hành trực tiếp trên môi trường lab thực tế.",
+                details: [
+                    "Tần suất: 1 buổi/tháng", 
+                    "Chứng chỉ: Cấp sau khi hoàn thành", 
+                    "Mở đăng ký: Ngày 15 hàng tháng",
+                    "Kết thúc đăng ký: Ngày 20 hàng tháng"
+                ]
+            },
+            {
+                id: 5,
+                title: "Triển Khai Dự Án",
+                tag: "Vận hành",
+                status: "Theo tiến độ",
+                icon: "rocket",
+                color: "bg-rose-600",
+description: "Quy trình đưa sản phẩm lên môi trường Production an toàn và nhanh chóng.",
+                fullContent: "Mọi đợt triển khai đều tuân thủ quy chuẩn CI/CD nghiêm ngặt để đảm bảo an toàn cho hệ thống và trải nghiệm người dùng cuối.",
+                details: [
+                    "Tiêu chuẩn: 99.99% Uptime", 
+                    "Hệ thống: K8s, Docker, Jenkins", 
+                    "Mở đăng ký Release: Sáng Thứ 2",
+                    "Kết thúc đăng ký: Chiều Thứ 3"
+                ]
+            },
+            {
+                id: 6,
+                title: "Tech Team Building",
+                tag: "Gắn kết",
+                status: "Quý 1 lần",
+                icon: "users",
+                color: "bg-indigo-600",
+                description: "Các hoạt động dã ngoại và giải trí giúp gắn kết tinh thần đồng đội sau giờ làm việc.",
+                fullContent: "Xây dựng văn hóa mở và tin cậy thông qua các hoạt động dã ngoại, team bonding, giúp mọi người phối hợp ăn ý hơn trong các dự án phức tạp.",
+                details: [
+                    "Hoạt động: Team bonding, Picnic", 
+                    "Mục tiêu: Gắn kết thành viên", 
+                    "Mở đăng ký: Trước sự kiện 15 ngày",
+                    "Kết thúc đăng ký: Trước sự kiện 5 ngày"
+                ]
+            }
+        ];
+
+        const app = document.getElementById('app');
+
+        function renderHome() {
+            window.scrollTo(0, 0);
+            app.innerHTML = `
+                <div class="container fade-in">
+                    <header>
+                        <div class="subtitle">
+                            <span class="header-line"></span>
+                            Tech Department
+                        </div>
+                        <h1>Hoạt Động <span class="gradient-text">Tiêu Biểu</span></h1>
+                        <p class="header-desc">
+                            Lịch trình và thông tin đăng ký các hoạt động quan trọng dành cho khối công nghệ.
+                        </p>
+                    </header>
+
+                    <div id="cards-grid" class="grid"></div>
+
+                    <footer style="margin-top: 5rem; padding-top: 2rem; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; color: #94a3b8;">
+                        <div style="display: flex; gap: 1.5rem;">
+                           <span><i data-lucide="calendar" style="width: 14px; vertical-align: middle;"></i> Cổng đăng ký mở định kỳ</span>
+                           <span><i data-lucide="shield-check" style="width: 14px; vertical-align: middle;"></i> Nội bộ Ban Công nghệ</span>
+                        </div>
+                        <p>© 2024 Ban Công Nghệ - Innovation Hub</p>
+                    </footer>
+                </div>
+            `;
+
+            const grid = document.getElementById('cards-grid');
+activities.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "card";
+                card.onclick = () => renderDetail(item.id);
+                card.innerHTML = `
+                    <div class="bg-accent ${item.color}"></div>
+                    <div class="icon-box ${item.color}">
+                        <i data-lucide="${item.icon}" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="card-meta">
+                        <span class="tag">${item.tag}</span>
+                        <span class="status-badge">${item.status}</span>
+                    </div>
+                    <h3>${item.title}</h3>
+                    <p>${item.description}</p>
+                    <div class="card-footer">
+                        <span>Chi tiết đăng ký</span>
+                        <i data-lucide="arrow-right" class="btn-arrow" style="width: 16px;"></i>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            lucide.createIcons();
+        }
+
+        function renderDetail(id) {
+            const item = activities.find(a => a.id === id);
+            if (!item) return;
+
+            window.scrollTo(0, 0);
+            app.innerHTML = `
+                <div class="fade-in">
+                    <div class="detail-header ${item.color}">
+                        <button onclick="renderHome()" class="back-btn">
+                            <i data-lucide="chevron-left" style="width: 18px;"></i> QUAY LẠI
+                        </button>
+                        <i data-lucide="${item.icon}" style="width: 100px; height: 100px; opacity: 0.2;"></i>
+                    </div>
+
+                    <div class="detail-content-wrapper">
+                        <div class="detail-card">
+                            <div style="display: flex; gap: 0.75rem; margin-bottom: 1.5rem; align-items: center;">
+                                <span class="tag" style="background: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 99px;">${item.tag}</span>
+                                <span style="color: #94a3b8; font-size: 0.875rem;">${item.status}</span>
+                            </div>
+
+                            <h1 style="font-size: 2.5rem; margin-bottom: 2rem;">${item.title}</h1>
+                            
+                            <h3 style="border-left: 4px solid #2563eb; padding-left: 1rem; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 0.1em; color: #1e293b;">Tổng quan</h3>
+                            <p style="font-size: 1.125rem; color: #475569; line-height: 1.8; margin-bottom: 3rem;">${item.fullContent}</p>
+
+                            <div class="info-grid">
+<div style="grid-column: 1 / -1; margin-bottom: 1rem; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: #64748b; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i data-lucide="calendar-days" style="width: 16px; color: #2563eb;"></i> Lịch trình đăng ký chi tiết
+                                </div>
+                                ${item.details.map((detail) => {
+                                    let icon = "info";
+                                    let color = "#3b82f6";
+                                    if (detail.includes("Mở đăng ký")) { icon = "calendar-plus"; color = "#10b981"; }
+                                    if (detail.includes("Kết thúc")) { icon = "calendar-x"; color = "#f43f5e"; }
+                                    if (detail.includes("Thời gian")) { icon = "clock"; color = "#6366f1"; }
+                                    
+                                    return `
+                                        <div class="info-item">
+                                            <i data-lucide="${icon}" style="width: 18px; color: ${color}; flex-shrink: 0;"></i>
+                                            <span style="font-weight: 600; font-size: 0.875rem; color: #334155;">${detail}</span>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+
+                            <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #f1f5f9; text-align: center;">
+                                <button onclick="renderHome()" style="background: #0f172a; color: white; border: none; padding: 1rem 2.5rem; border-radius: 1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; cursor: pointer; transition: background 0.2s;">
+                                    Trở về danh sách
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            lucide.createIcons();
+        }
+
+        renderHome();
+    </script>
+</body>
+</html>
